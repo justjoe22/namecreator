@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function validateComments() {
+   //Gets called if the 'OK' dialog button is clicked
+   //Make sure dialog comments are not empty
+   var comments = gel("dial_comments").value;
+   comments = trim(comments);
+   if (comments == "") {
+      //If comments are empty stop submission
+      alert("Please provide comments to submit the dialog.");
+      return false;
+   }
+   //If comments are not empty do this...
+   GlideDialogWindow.get().destroy(); //Close the dialog window
+   g_form.setValue("comments", comments); //Set the 'Comments' field with comments in the dialog
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_82093_name_creat_NameCreator.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<g:ui_form>
+  <!-- Get values from dialog preferences passed in -->  
+  <g:evaluate var="jvar_comments_text"
+    expression="RP.getWindowProperties().get('comments_text')" />
+   <!-- Set up form fields and labels -->
+   <table width="100%">
+     <tr id="description_row" valign="top">
+        <td colspan="2">
+           <!-- Short description value used as a label -->
+           ${jvar_short_text}
+        </td>
+     </tr>
+     <tr>
+       <td>
+         <!-- Comments text field (Contains comments from originating record as a default) -->
+         <g:ui_multiline_input_field name="dial_comments" id="dial_comments" label="Additional comments" value="${jvar_comments_text}" mandatory="true" />
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+       </td>
+     </tr>
+     <tr id="dialog_buttons">
+        <td colspan="2" align="right">
+           <!-- Pull in 'dialog_buttons_ok_cancel' UI Macro for submit/cancel buttons.
+          'ok' option will call the 'validateComments' Client script function from the UI Page-->
+           <g:dialog_buttons_ok_cancel ok="return validateComments()" ok_type="button" cancel_type="button" />
+        </td>
+     </tr>
+  </table>
+</g:ui_form>
+</j:jelly>]]></html>
+        <name>NameCreator</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-01-21 19:37:33</sys_created_on>
+        <sys_id>74b10b8fdbc323001c0aa455ca961984</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>NameCreator</sys_name>
+        <sys_package display_value="Name Creator: Update Sets" source="x_82093_name_creat">dcf7b247dbc323001c0aa455ca961917</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Name Creator: Update Sets">dcf7b247dbc323001c0aa455ca961917</sys_scope>
+        <sys_update_name>sys_ui_page_74b10b8fdbc323001c0aa455ca961984</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-01-21 20:24:58</sys_updated_on>
+    </sys_ui_page>
+</record_update>

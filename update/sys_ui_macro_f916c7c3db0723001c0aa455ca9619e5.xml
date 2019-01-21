@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_macro">
+    <sys_ui_macro action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <category>general</category>
+        <description/>
+        <media_type/>
+        <name>GenerateName</name>
+        <scoped_name>x_82093_name_creat_GenerateName</scoped_name>
+        <sys_class_name>sys_ui_macro</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-01-21 19:57:56</sys_created_on>
+        <sys_id>f916c7c3db0723001c0aa455ca9619e5</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>GenerateName</sys_name>
+        <sys_package display_value="Name Creator: Update Sets" source="x_82093_name_creat">dcf7b247dbc323001c0aa455ca961917</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Name Creator: Update Sets">dcf7b247dbc323001c0aa455ca961917</sys_scope>
+        <sys_update_name>sys_ui_macro_f916c7c3db0723001c0aa455ca9619e5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-01-21 20:23:29</sys_updated_on>
+        <xml><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<style>
+	.ext-link-icon {
+		font-size: 18px;
+		margin-top: 6px;
+	}
+</style>
+<script>
+function commentsDialog() {
+   //Get the values to pass into the dialog
+   var name_text = g_form.getValue("name");   
+
+   //Initialize and open the Dialog Window
+   var dialog = new GlideDialogWindow("x_82093_name_creat_NameCreator"); //Render the dialog containing the UI Page 'task_comments_dialog'
+   dialog.setTitle("Generate Name"); //Set the dialog title
+   dialog.setPreference("comments_text", name_text); //Pass in comments for use in the dialog   
+   dialog.render(); //Open the dialog
+}
+</script>
+<a title="Generate Name" class="ext-link-icon" onclick="javascript:commentsDialog()">
+	<i class="fa fa-bullseye"></i>
+	<!--<img src="images/warning.gifx" />-->
+</a>
+</j:jelly>]]></xml>
+    </sys_ui_macro>
+</record_update>
