@@ -3,17 +3,75 @@
         <category>general</category>
         <client_script><![CDATA[function validateComments() {
    //Gets called if the 'OK' dialog button is clicked
+	
+	var myName = "";
+	
    //Make sure dialog comments are not empty
-   var comments = gel("dial_comments").value;
-   comments = trim(comments);
-   if (comments == "") {
-      //If comments are empty stop submission
-      alert("Please provide comments to submit the dialog.");
-      return false;
+   var sprint_name = gel("sprint_name").value;
+   sprint_name = trim(sprint_name);
+   sprint_name = replaceAll(sprint_name,' ', '');
+   if (sprint_name != "") {	   
+    myName += sprint_name + '.';
    }
+	
+   var product = g_form.getDisplayBox('product').value;
+   product = trim(product);   
+   product = replaceAll(product,' ', '');
+   if (product != "") {
+	product = product.split(/\[|]/)[1];
+    myName +=  product + '.';
+   }
+   else {
+	   alert("Select a Product");
+	   return false;
+   }
+	
+   var ticket_no = gel("ticket_no").value;
+   ticket_no = trim(ticket_no);
+   ticket_no = replaceAll(ticket_no,' ', '');
+   if (ticket_no != "") {	   
+    myName += ticket_no + '.';
+   }
+   else {
+	   alert("Story or Incident Number is required");
+	   return false;
+   }
+	
+   var init = gel("init").value;
+   init = trim(init);
+   init = replaceAll(init,' ', '');
+   if (init != "") {	   
+    myName += init + '.';
+   }
+   else {
+	   alert("Developer Initials is required");
+	   return false;
+   }
+	
+   var desc = gel("desc").value;
+   desc = trim(desc);
+   desc = replaceAll(desc,' ', '');
+   if (desc != "") {	   
+    myName += desc;
+   }
+   else {
+	   alert("Short Description");
+	   return false;
+   }
+	
+   var version = gel("version").value;
+   version = trim(version);
+   version = replaceAll(version,' ', '');
+   if (version != "") {	   
+    myName += ' v' + version;
+   }
+	
+	//If comments are empty stop submission
+  // alert(myName);
+     	
    //If comments are not empty do this...
    GlideDialogWindow.get().destroy(); //Close the dialog window
-   g_form.setValue("comments", comments); //Set the 'Comments' field with comments in the dialog
+   g_form.setValue("name", myName); //Set the 'Comments' field with comments in the dialog
 }]]></client_script>
         <description/>
         <direct>false</direct>
@@ -21,25 +79,108 @@
         <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
 <g:ui_form>
-  <!-- Get values from dialog preferences passed in -->  
-  <g:evaluate var="jvar_comments_text"
-    expression="RP.getWindowProperties().get('comments_text')" />
    <!-- Set up form fields and labels -->
    <table width="100%">
      <tr id="description_row" valign="top">
         <td colspan="2">
            <!-- Short description value used as a label -->
-           ${jvar_short_text}
+           Sprint, Epic or Release
         </td>
      </tr>
-     <tr>
+	 <tr>
        <td>
-         <!-- Comments text field (Contains comments from originating record as a default) -->
-         <g:ui_multiline_input_field name="dial_comments" id="dial_comments" label="Additional comments" value="${jvar_comments_text}" mandatory="true" />
+         <!-- Sprint, Epic or Release -->
+         <input id="sprint_name" value="" label="Sprint, Epic or Release" class="form-control"/>
        </td>
      </tr>
      <tr>
        <td colspan="2">
+		   
+       </td>
+     </tr>
+	   <tr id="description_row" valign="top">
+        <td colspan="2">
+           <!-- Short description value used as a label -->
+           Product
+        </td>
+     </tr>
+     <tr>
+       <td>
+         <!-- ServiceNow Product -->
+         <g:ui_reference name="product" label="Product" table="cmdb_application_product_model" field="name"/>
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+		   
+       </td>
+     </tr>
+     <tr id="description_row" valign="top">
+        <td colspan="2">
+           <!-- Short description value used as a label -->
+           Story or Incident Number
+        </td>
+     </tr>
+	 <tr>
+       <td>
+         <!-- Story or Incident Number -->
+         <input id="ticket_no" value="" label="Story or Incident Number" class="form-control"/>
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+		   
+       </td>
+     </tr>
+     <tr id="description_row" valign="top">
+        <td colspan="2">
+           <!-- Short description value used as a label -->
+           Developer Initials
+        </td>
+     </tr>
+	 <tr>
+       <td>
+         <!-- Developer Initials -->
+         <input id="init" value="" label="Developer Initials" class="form-control"/>
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+		   
+       </td>
+     </tr>
+     <tr id="description_row" valign="top">
+        <td colspan="2">
+           <!-- Short description value used as a label -->
+           Short Description
+        </td>
+     </tr>
+	 <tr>
+       <td>
+         <!-- Short Description -->
+         <input id="desc" value="" label="Short Description" class="form-control"/>
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+		   
+       </td>
+     </tr>
+     <tr id="description_row" valign="top">
+        <td colspan="2">
+           <!-- Short description value used as a label -->
+           Version
+        </td>
+     </tr>
+	 <tr>
+       <td>
+         <!-- Version -->
+         <input id="version" value="1.0" label="Version" class="form-control"/>
+       </td>
+     </tr>
+     <tr>
+       <td colspan="2">
+		   
        </td>
      </tr>
      <tr id="dialog_buttons">
@@ -58,13 +199,13 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-01-21 19:37:33</sys_created_on>
         <sys_id>74b10b8fdbc323001c0aa455ca961984</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_name>NameCreator</sys_name>
         <sys_package display_value="Name Creator: Update Sets" source="x_82093_name_creat">dcf7b247dbc323001c0aa455ca961917</sys_package>
         <sys_policy/>
         <sys_scope display_value="Name Creator: Update Sets">dcf7b247dbc323001c0aa455ca961917</sys_scope>
         <sys_update_name>sys_ui_page_74b10b8fdbc323001c0aa455ca961984</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-01-21 20:24:58</sys_updated_on>
+        <sys_updated_on>2019-01-22 14:13:10</sys_updated_on>
     </sys_ui_page>
 </record_update>
